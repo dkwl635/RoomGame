@@ -6,15 +6,18 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rigid_player;
     Animator animator_player;
-    Vector3 vec_Movement;
+    Vector3 movement;
 
     public float turnSpeed;
     Quaternion rotation = Quaternion.identity;
+
+    AudioSource AS_Foots;
 
     void Start()
     {
         animator_player = GetComponent<Animator>();
         rigid_player = GetComponent<Rigidbody>();
+        AS_Foots = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -22,17 +25,25 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        vec_Movement = new Vector3(horizontal, 0, vertical);
-        vec_Movement.Normalize(); 
+        movement = new Vector3(horizontal, 0, vertical);
+        movement.Normalize(); 
 
         bool hasVerticalInput = !Mathf.Approximately(vertical, 0.0f);
         bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0.0f);
 
         bool isWalking = hasVerticalInput || hasHorizontalInput;
         animator_player.SetBool("IsWalking", isWalking);
+        if (isWalking)
+        {
+            if (!AS_Foots.isPlaying)
+            {
+                AS_Foots.Play();
+            }
+        }
+        else
+            AS_Foots.Stop();
 
-   
-        Vector3 desiredForward = Vector3.RotateTowards(transform.forward, vec_Movement, turnSpeed * Time.deltaTime, 0.0f);
+            Vector3 desiredForward = Vector3.RotateTowards(transform.forward, movement, turnSpeed * Time.deltaTime, 0.0f);
         rotation = Quaternion.LookRotation(desiredForward);
     }
 
@@ -43,8 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnAnimatorMove()
     {
-        rigid_player.MovePosition(rigid_player.position + vec_Movement  * animator_player.deltaPosition.magnitude);
+        rigid_player.MovePosition(rigid_player.position + movement * animator_player.deltaPosition.magnitude);
         rigid_player.MoveRotation(rotation);
+
+       
        
     }
 
