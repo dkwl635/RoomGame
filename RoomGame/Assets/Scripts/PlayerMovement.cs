@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     Rigidbody rigid_player;
     Animator animator_player;
     Vector3 movement;
@@ -13,6 +14,15 @@ public class PlayerMovement : MonoBehaviour
 
     AudioSource AS_Foots;
 
+    public bool isKeyMove;
+    //1인칭
+    public GameObject camera;
+    float mx,my; //마우스 이동 감지
+    float camX, y; //이동 변수
+    public float rotSpeed = 200.0f;
+
+
+
     void Start()
     {
         animator_player = GetComponent<Animator>();
@@ -20,18 +30,48 @@ public class PlayerMovement : MonoBehaviour
         AS_Foots = GetComponent<AudioSource>();
     }
 
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            mx = Input.GetAxis("Mouse X"); //마우스 이동 받기
+            my = Input.GetAxis("Mouse Y"); //마우스 이동 받기
+
+
+
+            float _cameraRotationX = my * rotSpeed;
+
+            camX -= _cameraRotationX;
+            //camX = Mathf.Clamp(camX, -cameraRotationLimit, cameraRotationLimit);
+
+            camera.transform.localEulerAngles = new Vector3(camX, 0f, 0f);
+
+
+            //캐릭터 회전
+            Vector3 _characterRotationY = new Vector3(0f, mx, 0f) * rotSpeed;
+            rigid_player.MoveRotation(rigid_player.rotation * Quaternion.Euler(_characterRotationY)); // 쿼터니언 * 쿼터니언
+        }
+
+     
+     
+       
+
+    }
+
     private void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal"); //x
+        float vertical = Input.GetAxis("Vertical");        //z
 
         movement = new Vector3(horizontal, 0, vertical);
-        movement.Normalize(); 
+        movement.Normalize();
 
-        bool hasVerticalInput = !Mathf.Approximately(vertical, 0.0f);
         bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0.0f);
+        bool hasVerticalInput = !Mathf.Approximately(vertical, 0.0f);
 
         bool isWalking = hasVerticalInput || hasHorizontalInput;
+
         animator_player.SetBool("IsWalking", isWalking);
         if (isWalking)
         {
@@ -43,23 +83,35 @@ public class PlayerMovement : MonoBehaviour
         else
             AS_Foots.Stop();
 
+
+        if (isKeyMove)
+        {       
             Vector3 desiredForward = Vector3.RotateTowards(transform.forward, movement, turnSpeed * Time.deltaTime, 0.0f);
-        rotation = Quaternion.LookRotation(desiredForward);
+            rotation = Quaternion.LookRotation(desiredForward);    
+        }
+        else
+        {
+            Vector3 _moveHorizontal = transform.right * horizontal;
+            Vector3 _moveVertical = transform.forward * vertical;
+            Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * turnSpeed;
+
+            rigid_player.MovePosition(transform.position + _velocity * Time.deltaTime);
+        }
+
+
+
     }
 
-    void Update()
+    private void OnAnimatorMove()
     {
-       
-    }
+        if (!isKeyMove)
+            return;
 
-    void OnAnimatorMove()
-    {
         rigid_player.MovePosition(rigid_player.position + movement * animator_player.deltaPosition.magnitude);
         rigid_player.MoveRotation(rotation);
-
-       
-       
     }
+
+
 
 
 }

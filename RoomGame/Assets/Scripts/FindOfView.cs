@@ -41,6 +41,8 @@ public class FindOfView : MonoBehaviour
     Mesh Mesh_View;
     public MeshFilter MeshFilter_View;
 
+    public bool isEditor = false;
+
 
     private void Start()
     {
@@ -53,7 +55,7 @@ public class FindOfView : MonoBehaviour
 
     private void LateUpdate()
     {
-        DrawFindOfView();
+        //DrawFindOfView();
     }
 
     IEnumerator FindTargetsDelay(float delay)//일정 주기동안 타겟을 찾는
@@ -68,7 +70,8 @@ public class FindOfView : MonoBehaviour
     }
 
     void FindTargets() //타겟을 찾는
-    {   //사거리에 걸리는 모든 콜라이더
+    {   
+        //사거리에 걸리는 모든 콜라이더
         Collider[] targets = Physics.OverlapSphere(transform.position, viewRadius, LayerMask_target);
         for (int i = 0; i < targets.Length; i++)
         {
@@ -97,7 +100,7 @@ public class FindOfView : MonoBehaviour
     }
 
 
-    void DrawFindOfView()
+    void DrawFindOfView() //시야각 을 보여주는
     {
         //샘플링할 점과 샘플링으로 나눠어지는 각의크기를 구함
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution); //반올림하여 int 형으로 반환
@@ -110,7 +113,7 @@ public class FindOfView : MonoBehaviour
             float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
             ViewCastInfo newViewCast = ViewCast(angle);
 
-            //i가 0이면 prevViewCast 에 아 값이 없어 정점 보간을 할수 없으니 건너뛴다.
+            //i가 0이면 prevViewCast 에  값이 없어 정점 보간을 할수 없으니 건너뛴다.
             if (i != 0)
             {
                 bool edgeDstThresholdExceed = Mathf.Abs(prevViewCast.dst - newViewCast.dst) > edgeDstThreshold;
