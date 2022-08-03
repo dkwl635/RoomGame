@@ -7,8 +7,11 @@ using UnityEngine;
 public class FindOfViewEditor : Editor
 {
     private void OnSceneGUI()
-    {
+    {   
         FindOfView view = (FindOfView)target;
+        if (!view.isEditor)
+            return;
+
         Handles.color = Color.white;
         Handles.DrawWireArc(view.transform.position, Vector3.up, Vector3.forward, 360, view.viewRadius);//사거리 원 그리기
         Vector3 viewAngleA = view.DirFromAngle(-view.viewAngle / 2, false);
