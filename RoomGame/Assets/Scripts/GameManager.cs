@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject mainCamera;
-    public GameObject subCamera;
-    private void Update()
+    public static GameManager Inst;
+
+   
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
-            ChangeCamera();
+        if (Inst == null)
+        {
+            Inst = this;
+            DontDestroyOnLoad(Inst);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+           
     }
-
-
-    void ChangeCamera()
-    {
-        mainCamera.SetActive(!mainCamera.activeSelf);
-        subCamera.SetActive(!subCamera.activeSelf);
-    }
-
-
 
 }
