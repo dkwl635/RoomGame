@@ -76,11 +76,7 @@ public class FindOfView : MonoBehaviour
             Vector3 dirToTarget = (targetpos - transform.position).normalized; //타겟으로의 방향
             if(Vector3.Angle(transform.forward,dirToTarget) < viewAngle/2)  //전방 백터와 타겟방향백터의 크기가 시야각 1/2이면 시야에 들어오는 상태
             {
-                Vector3 dirToTarget1 = dirToTarget + transform.right * targets[i].GetComponent<CapsuleCollider>().radius;
-                Vector3 dirToTarget2 = dirToTarget + (-transform.right) * targets[i].GetComponent<CapsuleCollider>().radius;
-
                 float disToTarget = Vector3.Distance(transform.position, targetpos);// 타겟까지의 거리 계산          
-               
                 if (!Physics.Raycast(transform.position, dirToTarget, disToTarget,LayerMask_obstacle))   //타겟까지 또다른 레이저를 발사
                 {//걸리면 장애물이 있다는 소리
                     Debug.Log("타겟 확인");
