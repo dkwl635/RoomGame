@@ -541,8 +541,8 @@ GameObject:
   - component: {fileID: 8520436027652299852}
   - component: {fileID: 8313425769489406484}
   - component: {fileID: 4322508219857314287}
-  - component: {fileID: 3284987474072174711}
   - component: {fileID: 8054778066251699852}
+  - component: {fileID: 3284987474072174711}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -638,20 +638,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3284987474072174711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5944949581690651551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a103036ef935234ea69ef50a31c431f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 4322508219857314287}
-  Tr_Waypoints: []
 --- !u!82 &8054778066251699852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -748,6 +734,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3284987474072174711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944949581690651551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a103036ef935234ea69ef50a31c431f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 4322508219857314287}
+  Tr_Waypoints: []
 --- !u!1 &5944949581690651633
 GameObject:
   m_ObjectHideFlags: 0

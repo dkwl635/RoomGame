@@ -63,8 +63,9 @@ public class GameEnding : MonoBehaviour
             }
             else
             {
-                Debug.Log("Goal");             
-                Application.Quit();
+                Debug.Log("Goal");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                //Application.Quit();
             }
             timer = 0.0f;
 
