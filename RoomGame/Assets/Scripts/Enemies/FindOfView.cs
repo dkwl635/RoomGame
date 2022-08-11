@@ -43,6 +43,8 @@ public class FindOfView : MonoBehaviour
 
     public bool isEditor = false;
 
+    //시야각 테스트
+
 
     private void Start()
     {
@@ -79,15 +81,21 @@ public class FindOfView : MonoBehaviour
             Vector3 dirToTarget = (targetpos - transform.position).normalized; //타겟으로의 방향
             if(Vector3.Angle(transform.forward,dirToTarget) < viewAngle/2)  //전방 백터와 타겟방향백터의 크기가 시야각 1/2이면 시야에 들어오는 상태
             {
-                Vector3 dirToTarget1 = dirToTarget + transform.right * targets[i].GetComponent<CapsuleCollider>().radius;
-                Vector3 dirToTarget2 = dirToTarget + (-transform.right) * targets[i].GetComponent<CapsuleCollider>().radius;
+                float radius = (targets[i] as CapsuleCollider).radius * 0.3f;
+                Vector3 pos1 = targetpos + transform.right * radius;
+                Vector3 pos2 = targetpos + (-transform.right) * radius;
 
-                float disToTarget = Vector3.Distance(transform.position, targetpos);// 타겟까지의 거리 계산          
-               
-                if (!Physics.Raycast(transform.position, dirToTarget, disToTarget,LayerMask_obstacle))   //타겟까지 또다른 레이저를 발사
+                Vector3 pos1dir = (pos1 - transform.position).normalized; 
+                Vector3 pos2dir = (pos2 - transform.position).normalized; //타겟으로의 방향
+                float disToTarget = Vector3.Distance(transform.position, targetpos);// 타겟까지의 거리 계산
+                                                                                    
+                //타겟의 중앙, 타겟의 좌우방향으로 콜라이거를 한번더 확인하기
+                if (!Physics.Raycast(transform.position, dirToTarget, disToTarget,LayerMask_obstacle) ||
+                    !Physics.Raycast(transform.position, pos1dir, disToTarget, LayerMask_obstacle) ||
+                    !Physics.Raycast(transform.position, pos2dir, disToTarget, LayerMask_obstacle)
+                    )   //타겟까지 또다른 레이저를 발사
                 {//걸리면 장애물이 있다는 소리
-                    Debug.Log("타겟 확인");
-                    
+                    Debug.Log("타겟 확인");                 
                 }
             }
         }     
