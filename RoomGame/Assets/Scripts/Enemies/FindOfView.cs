@@ -57,7 +57,8 @@ public class FindOfView : MonoBehaviour
 
     private void LateUpdate()
     {
-        DrawFindOfView();
+        if (isEditor)
+            DrawFindOfView();
     }
 
     IEnumerator FindTargetsDelay(float delay)//일정 주기동안 타겟을 찾는
