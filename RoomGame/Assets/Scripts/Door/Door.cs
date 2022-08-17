@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Door : MonoBehaviour
 {
+    public int  doorNum = 0;
+
     public GameObject doorTxtObj;
     public Collider doorCollider;
     Animation doorAnim;
@@ -14,9 +16,9 @@ public class Door : MonoBehaviour
 
     bool opened = false;  //문이 열려있는지
     bool isPlayer = false;  //플레이어가 가까이 있는지
-    bool isOpen = false;    //문을 열 수 있는지
+    [SerializeField] bool isOpen = false;    //문을 열 수 있는지
 
-    public bool IsOpen { set { isOpen = value; } }
+
 
     private void Awake()
     {
@@ -28,36 +30,57 @@ public class Door : MonoBehaviour
         doorTxt = doorTxtObj.GetComponent<Text>();
     }
 
-    public void OpenDoor()
+    private void Update()
     {
-        if (!opened)
+        if (Input.GetKeyDown(KeyCode.E))
         {
+            OpenDoor();
+        }                
+    }
+
+    public void CheckDoor(bool getKey)
+    {
+        if(getKey)
+        {
+            isOpen = true;
+            doorTxt.text = "E 키를 눌러 문을 여시요";
+        }    
+        else
+        {
+            doorTxt.text = "문을 열 열쇠가 필요합니다.";
+            isOpen = false;
+        }
+    }
+        
+
+     void OpenDoor()
+    {
+        if (!opened && isOpen && isPlayer)
+        {        
             opened = true;
-            doorCollider.enabled = false;
             doorTxtObj.SetActive(false);
-            doorAnim.Play();
+            doorAnim.Play("Door_Open");
+
+            Invoke("OffCollider", 1.0f);
+        }
+        else if (!isOpen && isPlayer)
+        {
+            doorAnim.Play("Door_Jam");
         }
     }
 
-    private void Update()
+    void OffCollider()
     {
-        if (isOpen && isPlayer && Input.GetKeyDown(KeyCode.E))
-            OpenDoor();
+        doorCollider.enabled = false;
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player") && !opened)
-        {
+        {      
             isPlayer = true;
             doorTxtObj.SetActive(true);
-
-            if (isOpen)
-                doorTxt.text = "E 키를 눌러 문을 여시요";
-            else
-                doorTxt.text = "문을 열 열쇠가 필요합니다.";
-
         }
     }
 

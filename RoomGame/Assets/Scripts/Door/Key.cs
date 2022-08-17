@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public Door door;
+    public int keyNum;
+    [SerializeField] Color keyColor;
+    [SerializeField] MeshRenderer keyMesh;
 
-    public void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if(other.CompareTag("Player"))
-        {
-            door.IsOpen = true;
-            Destroy(this.gameObject);
-        }
+        keyMesh.material.color = keyColor;
     }
+
 }
