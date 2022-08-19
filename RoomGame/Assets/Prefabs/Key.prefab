@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6375017023803027749}
   - component: {fileID: 6375017023803027750}
+  - component: {fileID: 1659182549}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -139,6 +140,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &1659182549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375017023803027748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f00343154f0634faa7d4140991027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyNum: 1
+  keyColor: {r: 1, g: 0, b: 0, a: 1}
+  keyMesh: {fileID: 5310807513445673698}
 --- !u!1001 &6375017023715442210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -227,5 +243,10 @@ PrefabInstance:
 --- !u!4 &6913629375864576457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f05aa63f95f401649a2577fb9e9ad80b, type: 3}
+  m_PrefabInstance: {fileID: 6375017023715442210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5310807513445673698 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1282219121056404672, guid: f05aa63f95f401649a2577fb9e9ad80b, type: 3}
   m_PrefabInstance: {fileID: 6375017023715442210}
   m_PrefabAsset: {fileID: 0}

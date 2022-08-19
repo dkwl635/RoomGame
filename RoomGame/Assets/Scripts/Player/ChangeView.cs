@@ -57,13 +57,13 @@ public class ChangeView : MonoBehaviour
     {
         if(On)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.5f);
             houesRoot.SetActive(true);
         }
         else 
         {
             houesRoot.SetActive(false);
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.5f);
         }
 
         yield return new WaitForSeconds(1.0f);

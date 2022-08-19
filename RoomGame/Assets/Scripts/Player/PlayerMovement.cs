@@ -23,8 +23,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float rotSpeed = 200.0f;
     float mx,my; //마우스 이동 감지
     float camX, y; //이동 변수
-  
 
+    [SerializeField] GameObject flash;
+    Quaternion flashOrginRot;
 
 
     void Start()
@@ -32,12 +33,14 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         footsAudio = GetComponent<AudioSource>();
+
+        flashOrginRot = flash.transform.rotation;
     }
 
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !isKeyMove)
         {
             mx = Input.GetAxis("Mouse X"); //마우스 이동 받기
             my = Input.GetAxis("Mouse Y"); //마우스 이동 받기
@@ -48,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             camX = Mathf.Clamp(camX, -20, 20); //최대 최소 제한
 
             camera.transform.localEulerAngles = new Vector3(camX, 0f, 0f);
-
+            flash.transform.localEulerAngles = new Vector3(camX, 0f, 0f);
             //캐릭터 회전
             Vector3 _characterRotationY = new Vector3(0f, mx, 0f) * rotSpeed;
             rigid.MoveRotation(rigid.rotation * Quaternion.Euler(_characterRotationY)); // 쿼터니언 * 쿼터니언
