@@ -5,7 +5,7 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     public int keyNum;
-    [SerializeField] Color keyColor;
+    public Color keyColor;
     [SerializeField] MeshRenderer keyMesh;
 
     private void Start()

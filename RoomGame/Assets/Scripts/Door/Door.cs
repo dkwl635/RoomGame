@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class Door : MonoBehaviour
 {
     public int  doorNum = 0;
-
-    public GameObject doorTxtObj;
-    public Collider doorCollider;
+    [SerializeField] Color doorColor;
+    [SerializeField] MeshRenderer doorMark;
+    [SerializeField] GameObject doorTxtObj;
+    [SerializeField] Collider doorCollider;
     Animation doorAnim;
     Text doorTxt;
 
@@ -28,6 +29,8 @@ public class Door : MonoBehaviour
     private void Start()
     {
         doorTxt = doorTxtObj.GetComponent<Text>();
+        if (doorMark)
+            doorMark.material.color = doorColor;
     }
 
     private void Update()
