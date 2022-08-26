@@ -37,7 +37,7 @@ public class MiniGameQuest : MonoBehaviour
     {
 
         infoTxt.gameObject.SetActive(false);
-
+        inplayer = false;
     }
 
 }
