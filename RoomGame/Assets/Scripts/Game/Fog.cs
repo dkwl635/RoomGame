@@ -6,11 +6,10 @@ public class Fog : MonoBehaviour
 {
     [SerializeField] GameObject[] fogs;
 
-    private void OnTriggerEnter(Collider other)
+    public void OffFogs()
     {
-        if (other.CompareTag("Player"))
-            for (int i = 0; i < fogs.Length; i++)
-                fogs[i].SetActive(false);
-        
+        for (int i = 0; i < fogs.Length; i++)
+            fogs[i].SetActive(false);
     }
+    
 }

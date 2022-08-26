@@ -21,12 +21,14 @@ public class DoorManager : MonoBehaviour
 
         public void OnKeyBox(Key key)
         {
+            isUse = true;
             obj.SetActive(true);
             keyImg.color = key.keyColor;
         }
 
        public void OffKeyBox()
         {
+            isUse = false;
             obj.SetActive(false);
         }
        

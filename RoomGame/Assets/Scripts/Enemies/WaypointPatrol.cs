@@ -27,4 +27,16 @@ public class WaypointPatrol : MonoBehaviour
             navMeshAgent.SetDestination(Tr_Waypoints[currentWaypointIndex].position);
         }
     }
+
+    public void MoveOnOff(bool isMove)
+    {
+        if(isMove)
+        {
+            navMeshAgent.isStopped = false;
+        }
+        else
+        {
+            navMeshAgent.isStopped = true;
+        }
+    }
 }
