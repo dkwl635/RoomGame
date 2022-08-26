@@ -14,6 +14,18 @@ public class PlayerMovement : MonoBehaviour
 
     AudioSource footsAudio;
 
+    bool isMove = true;
+    public bool IsMove { get { return isMove; } 
+        set { 
+            isMove = value;
+
+            if (!value)
+            {
+                animator.SetBool("IsWalking", false);
+                rigid.velocity = Vector3.zero;
+            }
+        } }
+
     bool isKeyMove =true;
 
     //1인칭
@@ -40,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!isMove)
+            return;
+
         if (Input.GetMouseButton(0) && !isKeyMove)
         {
             mx = Input.GetAxis("Mouse X"); //마우스 이동 받기
@@ -60,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isMove)
+            return;
+
         float horizontal = Input.GetAxis("Horizontal"); //x
         float vertical = Input.GetAxis("Vertical");        //z
 
@@ -72,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         bool isWalking = hasVerticalInput || hasHorizontalInput; //움직임이 있는지
 
         animator.SetBool("IsWalking", isWalking);
+       
         if (isWalking)        
            if (!footsAudio.isPlaying)      
                 footsAudio.Play();        

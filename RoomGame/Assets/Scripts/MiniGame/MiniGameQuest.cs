@@ -28,6 +28,7 @@ public class MiniGameQuest : MonoBehaviour
         {
             infoTxt.gameObject.SetActive(false);
             GameManager.Inst.EnemyMove(false);
+            GameManager.Inst.PlayerMove(false);
             miniGame.MiniGameStart();
         }
           
@@ -58,11 +59,14 @@ public class MiniGameQuest : MonoBehaviour
         questClear = true;
         fog.OffFogs();
         GameManager.Inst.EnemyMove(true);
+        GameManager.Inst.PlayerMove(true);
     }
 
     void QuestCloes()
     {
+
         GameManager.Inst.EnemyMove(true);
+        GameManager.Inst.PlayerMove(true);
     }
 
 }
