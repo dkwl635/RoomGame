@@ -13,9 +13,9 @@ public class ChangeView : MonoBehaviour
 
     PlayerMovement player;
 
-    [SerializeField] bool isChange = true; 
+    [SerializeField] bool isChange = true;
 
-
+   
     private void Awake()
     {
         playerLayer = 1 << LayerMask.NameToLayer("Player");
@@ -26,6 +26,9 @@ public class ChangeView : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         isChange = true;
+
+      
+
     }
 
     private void Update()

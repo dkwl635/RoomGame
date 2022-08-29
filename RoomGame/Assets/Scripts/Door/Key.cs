@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Key : MonoBehaviour,  IPointerExitHandler ,IPointerEnterHandler, IPointerClickHandler
+public class Key : Item,  IPointerExitHandler ,IPointerEnterHandler, IPointerClickHandler
 {
-    public int keyNum;
+    
     public Color keyColor;
     [SerializeField] MeshRenderer keyMesh;
-
-
 
     private void Start()
     {

@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
 
     PlayerMovement player;
     WaypointPatrol[] waypointPatrols;
-   
+
+    [Header("ItemData")]
+    [SerializeField] private ItemData[] itemDatas;
+    public Dictionary<int, ItemData> ItemDates = new Dictionary<int, ItemData>();
+
 
     private void Awake()
     {
@@ -28,6 +32,16 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindObjectOfType<PlayerMovement>();
         waypointPatrols = GameObject.FindObjectsOfType<WaypointPatrol>();
+
+        for (int i = 0; i < itemDatas.Length; i++)
+        {
+            if (ItemDates.ContainsKey(itemDatas[i].item_Id))
+                Debug.Log("중복되는 아이디가 있습니다 : " + itemDatas[i].item_Name);
+
+            ItemDates.Add(itemDatas[i].item_Id, itemDatas[i]);
+        }
+
+
     }
 
     public void EnemyMove(bool IsMove)//움직이는 모든 유령 정지/이동

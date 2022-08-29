@@ -46,6 +46,7 @@ public class FindNum : MonoBehaviour, MiniGame
         numUpDownBtn[4].onClick.AddListener(() => UpDownBtn(2, true));
         numUpDownBtn[5].onClick.AddListener(() => UpDownBtn(2, false));
 
+        OkBtn.onClick.AddListener(OkBtnFunc);
         closeBtn.onClick.AddListener(CloesUI);
     }
 
@@ -73,4 +74,17 @@ public class FindNum : MonoBehaviour, MiniGame
         this.gameObject.SetActive(false);
     }
 
+    void OkBtnFunc()
+    {
+        if(answerNums[0] == 7 && answerNums[1] == 5 && answerNums[2] == 2)
+        {
+            ClearQuest();
+        }
+    }
+
+    void ClearQuest()
+    {
+        ClearFunc?.Invoke();//외부 연결된 함수 실행
+        this.gameObject.SetActive(false);
+    }
 }   

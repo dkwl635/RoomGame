@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Door : MonoBehaviour
 {
-    public int  doorNum = 0;
+    public int openNeedItem = 0; //문을 열기위한 아이템 코드
     [SerializeField] Color doorColor;
     [SerializeField] MeshRenderer doorMark;
     [SerializeField] GameObject doorTxtObj;
@@ -41,9 +41,9 @@ public class Door : MonoBehaviour
         }                
     }
 
-    public void CheckDoor(bool getKey)
+    public void CheckDoor()
     {
-        if(getKey)
+        if(Inven.Inst.FindItem(openNeedItem))//아이템이 있는지 확인
         {
             isOpen = true;
             doorTxt.text = "E 키를 눌러 문을 여시요";
@@ -59,7 +59,8 @@ public class Door : MonoBehaviour
      void OpenDoor()
     {
         if (!opened && isOpen && isPlayer)
-        {        
+        {
+            Inven.Inst.UseItem(openNeedItem);//아이템 사용
             opened = true;
             doorTxtObj.SetActive(false);
             doorAnim.Play("Door_Open");
@@ -83,6 +84,7 @@ public class Door : MonoBehaviour
         if(other.CompareTag("Player") && !opened)
         {      
             isPlayer = true;
+            CheckDoor();
             doorTxtObj.SetActive(true);
         }
     }
