@@ -11,6 +11,11 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 
     GameObject E_txt;
     bool isPlayerSee = false;
+    bool isRot = false;
+
+    float rotTime = 0.0f;
+    [SerializeField] Quaternion origin;
+    [SerializeField] Quaternion next;
 
     private void Awake()
     {
@@ -31,16 +36,32 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                PictureRot();
                 E_txt.SetActive(false);
-                this.gameObject.SetActive(false);
+              
             }
         }
+
+        if(isRot)
+        {
+            rotTime += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(origin, next, rotTime);
+            if(rotTime >= 1.0f)
+            {
+                isRot = false;
+                transform.rotation = next;          
+            }
+
+        }
+
+
     }
 
 
     public void OnPointerEnter(PointerEventData eventData)
     {      
         isPlayerSee = true;
+        E_txt.SetActive(true);
         materialList.Add(outline);
         renderer.materials = materialList.ToArray();
     }
@@ -52,4 +73,14 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
         materialList.Remove(outline);
         renderer.materials = materialList.ToArray();
     }
+
+    void PictureRot()
+    {
+        origin = transform.rotation;
+        next = origin * Quaternion.Euler(0, 0, 90.0f);
+        rotTime = 0.0f;
+        isRot = true;
+    }
+   
+
 }
