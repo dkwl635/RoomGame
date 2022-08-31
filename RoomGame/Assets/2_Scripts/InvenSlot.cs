@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InvenSlot : MonoBehaviour , IPointerEnterHandler
+public class InvenSlot : MonoBehaviour , IPointerEnterHandler , IPointerExitHandler
 {
      public int item_Id = -1;
     [HideInInspector] public bool empty = true;
@@ -13,10 +13,14 @@ public class InvenSlot : MonoBehaviour , IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        itemInfoTxt.text = GameManager.Inst.ItemDates[item_Id].item_Info;
+        itemInfoTxt.transform.parent.gameObject.SetActive(true);
+        itemInfoTxt.text = GameManager.Inst.ItemDates[item_Id].item_Name;
     }
 
-   
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        itemInfoTxt.transform.parent.gameObject.SetActive(false);
+    }
 
     public void SetSlot(int item_Id)
     {

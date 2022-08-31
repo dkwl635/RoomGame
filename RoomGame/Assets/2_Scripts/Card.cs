@@ -6,54 +6,101 @@ using TMPro;
 
 public class Card : Item, IPointerEnterHandler , IPointerExitHandler
 {
+   enum State
+    {
+        Idle,
+        OnPlayer,
+    }
+    State state;
+
     Renderer renderer;
-    List<Material> materialList = new List<Material>();
     Material outline;
 
     GameObject E_txt;
   
     bool isPlayerSee = false;
 
+    [SerializeField] float Distance;
+    Transform playerTr;
+
     private void Start()
-    {
-        outline = GameManager.Inst.OutlineMaterials["CardOutline"];
+    {      
         renderer = GetComponent<Renderer>();
-        materialList.AddRange(renderer.materials);
-
-
-        E_txt = GameObject.Find("E_Text");
-       
+        outline = renderer.materials[1];
+        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+        E_txt = GameObject.Find("E_Text");      
     }
+    
+
     private void Update()
     {
-        if (isPlayerSee)
+        StateUpdate();
+    }
+    void StateUpdate()
+    {
+        switch (state)
         {
-            E_txt.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            case State.Idle:
+                {
+                    if (isPlayerSee)
+                        if (Vector3.Distance(playerTr.position, transform.position) < Distance)
+                            ChangeState(State.OnPlayer);
+                }
+                break;
+            case State.OnPlayer:
+                {
+                    E_txt.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        E_txt.SetActive(false);
+                        Inven.Inst.AddItem(Item_id);
+                        this.gameObject.SetActive(false);
+                    }
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                E_txt.SetActive(false);
-                Inven.Inst.AddItem(Item_id);
-                this.gameObject.SetActive(false);
-            }
+                    if (Vector3.Distance(playerTr.position, transform.position) >= Distance)
+                        ChangeState(State.Idle);
+
+                }
+                break;
+           
         }
     }
 
+    void ChangeState(State newState)
+    {
+        if (state == newState)
+            return;
+
+        state = newState;
+        switch (state)
+        {
+            case State.Idle:
+                {
+                    outline.SetColor("_OutlineColor", Color.clear);
+                    E_txt.SetActive(false);
+                }
+                break;
+            case State.OnPlayer:
+                {
+                    outline.SetColor("_OutlineColor", Color.yellow);
+                    E_txt.SetActive(true);
+
+                }
+                break;
+        }
+
+
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
-    {    
-        E_txt.SetActive(true);
+    {
         isPlayerSee = true;
-        materialList.Add(outline);
-        renderer.materials = materialList.ToArray();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        E_txt.SetActive(false);
         isPlayerSee = false;
-        materialList.Remove(outline);
-        renderer.materials = materialList.ToArray();
+        ChangeState(State.Idle);
     }
 
 }

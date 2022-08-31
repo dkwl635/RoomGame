@@ -2,6 +2,7 @@ Shader "Draw/OutlineShader" {
 	Properties{
 		_OutlineColor("Outline Color", Color) = (1,1,0,1)
 		_Outline("Outline width", Range(0, 1)) = 0.1
+
 	}
 
 		CGINCLUDE

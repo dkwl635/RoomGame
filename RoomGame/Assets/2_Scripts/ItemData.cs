@@ -9,5 +9,4 @@ public class ItemData : ScriptableObject
     public int item_Id;
     public Sprite item_Img;
     public string item_Name;
-    public string item_Info;
 }
