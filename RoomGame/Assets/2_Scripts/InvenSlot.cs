@@ -7,12 +7,21 @@ using UnityEngine.EventSystems;
 public class InvenSlot : MonoBehaviour , IPointerEnterHandler , IPointerExitHandler
 {
      public int item_Id = -1;
-    [HideInInspector] public bool empty = true;
     [SerializeField] private Image slotImg;
     [SerializeField] private Text itemInfoTxt;
 
+    public static InvenSlot AddSlot(GameObject gameObject , Transform tr, int itemNum)
+    {
+        InvenSlot newSlot = GameObject.Instantiate(gameObject, tr).GetComponent<InvenSlot>();
+        newSlot.SetSlot(itemNum);
+        return newSlot;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (item_Id <= 0)
+            return;
+
         itemInfoTxt.transform.parent.gameObject.SetActive(true);
         itemInfoTxt.text = GameManager.Inst.ItemDates[item_Id].item_Name;
     }
@@ -24,7 +33,6 @@ public class InvenSlot : MonoBehaviour , IPointerEnterHandler , IPointerExitHand
 
     public void SetSlot(int item_Id)
     {
-        empty = false;
         this.item_Id = item_Id;
         slotImg.sprite = GameManager.Inst.ItemDates[item_Id].item_Img;
         gameObject.SetActive(true);
@@ -32,9 +40,7 @@ public class InvenSlot : MonoBehaviour , IPointerEnterHandler , IPointerExitHand
 
     public void UseItem()
     {
-        item_Id = -1;
-        empty = true;
-        this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
 }

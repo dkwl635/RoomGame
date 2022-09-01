@@ -9,12 +9,19 @@ public class MiniGameQuest : MonoBehaviour
     public GameObject MiniGameObj;
     MiniGame miniGame;
     [SerializeField] Text infoTxt;
-
     [SerializeField] Fog fog;
+
+    Outline meshOutline;
 
     bool inPlayer = false;
     bool questClear = false;
 
+
+    private void Awake()
+    {
+        meshOutline = GetComponentInChildren<Outline>();
+
+    }
     private void Start()
     {
         infoTxt = GameObject.Find("InfoText").GetComponent<Text>();
@@ -42,6 +49,7 @@ public class MiniGameQuest : MonoBehaviour
             inPlayer = true;
             infoTxt.gameObject.SetActive(true);
             infoTxt.text = "Q를 눌러 조작을 하세요";
+            meshOutline.SetColor(Color.yellow);
         } 
     }
 
@@ -49,6 +57,7 @@ public class MiniGameQuest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            meshOutline.SetColor(Color.clear);
             infoTxt.gameObject.SetActive(false);
             inPlayer = false;
         }
@@ -58,6 +67,7 @@ public class MiniGameQuest : MonoBehaviour
     {
         questClear = true;
         fog.OffFogs();
+        meshOutline.SetColor(Color.clear);
         GameManager.Inst.EnemyMove(true);
         GameManager.Inst.PlayerMove(true);
     }
