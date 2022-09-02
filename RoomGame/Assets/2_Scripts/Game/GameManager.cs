@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Inst;
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, ItemData> ItemDates = new Dictionary<int, ItemData>();
 
 
+
+   
 
     private void Awake()
     {
@@ -38,9 +41,11 @@ public class GameManager : MonoBehaviour
 
         player = GameObject.FindObjectOfType<PlayerMovement>();
         waypointPatrols = GameObject.FindObjectsOfType<WaypointPatrol>();
+        
     }
 
   
+
 
     public void EnemyMove(bool IsMove)//움직이는 모든 유령 정지/이동
     {

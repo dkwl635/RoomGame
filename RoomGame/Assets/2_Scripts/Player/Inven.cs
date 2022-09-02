@@ -15,11 +15,13 @@ public class Inven : MonoBehaviour
     RectTransform rectTransform;
 
     [SerializeField] Button invenBtn;
-   [SerializeField] bool Onoff = false;
+    [SerializeField] bool Onoff = false;
     Vector2 currpos = Vector2.zero;
-    Vector2 openPos = new Vector2(0, 0);
-    Vector2 closePos = new Vector2(200, 0);
+
     [SerializeField] float durtime = 0.0f;
+    [SerializeField] Text infoTxt;
+
+
     private void Awake()
     {
         Inst = this;
@@ -37,18 +39,24 @@ public class Inven : MonoBehaviour
     {
         if (Onoff)
         {
-            currpos.x -= Time.deltaTime * 200;
-            if (currpos.x <= 0.0f)
-                return;
-        }   
+            if (currpos.x > 0.0f)
+                currpos.x -= Time.deltaTime * 200;
+        }
         else
         {
-            currpos.x += Time.deltaTime * 200;
-            if (currpos.x >= 200)
-                return;
+            if (currpos.x < 200)
+                currpos.x += Time.deltaTime * 200;
         } 
            
         rectTransform.anchoredPosition = currpos;
+
+        if(durtime >= 0.0f)
+        {
+            durtime -= Time.deltaTime;
+            if (durtime < 0.0f)
+                infoTxt.gameObject.SetActive(false);
+        }
+
     }
 
     void OnOffInven()
@@ -61,6 +69,7 @@ public class Inven : MonoBehaviour
     public void AddItem(int item_Id)
     {
         invenSlots.Add(InvenSlot.AddSlot(slotObj, invenSlotTr, item_Id));
+        ShowTxtBox(GameManager.Inst.ItemDates[item_Id].item_Name + "¸¦ Å‰µæÇß½À´Ï´Ù.");
     }
 
     public bool FindItem(int item_Id)
@@ -78,7 +87,13 @@ public class Inven : MonoBehaviour
         find.UseItem();
     }
 
-  
+    void ShowTxtBox(string str)
+    {
+        infoTxt.gameObject.SetActive(true);
+        infoTxt.text = str;
+        durtime = 1.5f;
+
+    }
 
 
 }

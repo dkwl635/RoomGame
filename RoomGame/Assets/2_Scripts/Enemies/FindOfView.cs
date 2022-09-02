@@ -90,13 +90,14 @@ public class FindOfView : MonoBehaviour
                 Vector3 pos2dir = (pos2 - transform.position).normalized; //타겟으로의 방향
                 float disToTarget = Vector3.Distance(transform.position, targetpos);// 타겟까지의 거리 계산
                                                                                     
-                //타겟의 중앙, 타겟의 좌우방향으로 콜라이거를 한번더 확인하기
+                //타겟의 중앙, 타겟의 좌우방향으로 콜라이더를 한번더 확인하기
                 if (!Physics.Raycast(transform.position, dirToTarget, disToTarget,LayerMask_obstacle) ||
                     !Physics.Raycast(transform.position, pos1dir, disToTarget, LayerMask_obstacle) ||
                     !Physics.Raycast(transform.position, pos2dir, disToTarget, LayerMask_obstacle)
                     )   //타겟까지 또다른 레이저를 발사
                 {//걸리면 장애물이 있다는 소리
-                    Debug.Log("타겟 확인");                 
+                    Debug.Log("타겟 확인");
+                    targets[i].GetComponent<Life>().TakeDamage(0.2f);                 
                 }
             }
         }     

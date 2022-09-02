@@ -46,7 +46,7 @@ public class Door : MonoBehaviour
         if(Inven.Inst.FindItem(openNeedItem))//아이템이 있는지 확인
         {
             isOpen = true;
-            doorTxt.text = "E 키를 눌러 문을 여시요";
+            doorTxt.text = "E 키를 눌러 문을 여세요";
         }    
         else
         {

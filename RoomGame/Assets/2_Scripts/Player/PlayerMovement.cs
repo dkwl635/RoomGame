@@ -37,16 +37,16 @@ public class PlayerMovement : MonoBehaviour
     float camX, y; //이동 변수
 
     [SerializeField] GameObject flash;
-    Quaternion flashOrginRot;
 
+    Life life;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         footsAudio = GetComponent<AudioSource>();
+        life = GetComponent<Life>();
 
-        flashOrginRot = flash.transform.rotation;
     }
 
 
@@ -125,6 +125,5 @@ public class PlayerMovement : MonoBehaviour
     {
         isKeyMove = !isKeyMove;
     }
-
 
 }

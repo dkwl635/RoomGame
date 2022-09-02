@@ -11,9 +11,9 @@ public class GameEnding : MonoBehaviour
     bool isPlayerAtExit;
     bool isPlayerCaught;
 
-    public CanvasGroup CG_ExitBackgroundImageCanvasGroup;
-    public CanvasGroup CG_CaughtBackgroundImageCanvasGroup;
-
+    public CanvasGroup exitBackgroundImageCanvasGroup;
+    public CanvasGroup caughtBackgroundImageCanvasGroup;
+ 
     float timer;
     bool isHasAudioPlayer;
 
@@ -25,11 +25,11 @@ public class GameEnding : MonoBehaviour
     {
         if(isPlayerAtExit)
         {
-            EndLevel(CG_ExitBackgroundImageCanvasGroup,false, AS_Exit);
+            EndLevel(exitBackgroundImageCanvasGroup,false, AS_Exit);
         }
         else if (isPlayerCaught)
         {          
-            EndLevel(CG_CaughtBackgroundImageCanvasGroup,true,AS_Caught);
+            EndLevel(caughtBackgroundImageCanvasGroup,true,AS_Caught);
         }
     }
 

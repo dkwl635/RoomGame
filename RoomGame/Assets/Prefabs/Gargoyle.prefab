@@ -253,6 +253,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 2150136052694730545}
     m_Modifications:
     - target: {fileID: 285589248, guid: 6c359a8b70094dd4ebaae8ca32a931e8, type: 3}
+      propertyPath: viewAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 285589248, guid: 6c359a8b70094dd4ebaae8ca32a931e8, type: 3}
+      propertyPath: viewRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 285589248, guid: 6c359a8b70094dd4ebaae8ca32a931e8, type: 3}
       propertyPath: edgeDstThreshold
       value: 0
       objectReference: {fileID: 0}

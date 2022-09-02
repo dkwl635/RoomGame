@@ -24,7 +24,6 @@ public class MiniGameQuest : MonoBehaviour
     }
     private void Start()
     {
-        infoTxt = GameObject.Find("InfoText").GetComponent<Text>();
         miniGame = MiniGameObj.GetComponent<MiniGame>();
         miniGame.QuestSetFunc(QuestClear, QuestCloes);
     }
