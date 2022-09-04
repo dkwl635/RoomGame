@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
 
 
 
-   
+    public AudioSource[] a;
+    public List<AudioSource> find = new List<AudioSource>();
 
     private void Awake()
     {
@@ -44,7 +45,17 @@ public class GameManager : MonoBehaviour
         
     }
 
-  
+    private void Start()
+    {
+        a = GameObject.FindObjectsOfType<AudioSource>();
+        for (int i = 0; i < a.Length; i++)
+        {
+            if(a[i].clip.name == "SFXCandle")
+            {
+                find.Add(a[i]);
+            }
+        }
+    }
 
 
     public void EnemyMove(bool IsMove)//움직이는 모든 유령 정지/이동

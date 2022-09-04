@@ -91,9 +91,11 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("IsWalking", isWalking);
        
-        if (isWalking)        
+        if (isWalking)
+        { 
            if (!footsAudio.isPlaying)      
-                footsAudio.Play();        
+                footsAudio.Play();
+        }
         else
             footsAudio.Stop();
 
