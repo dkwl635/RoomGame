@@ -15,6 +15,7 @@ public class ChangeView : MonoBehaviour
 
     [SerializeField] bool isChange = true;
 
+
    
     private void Awake()
     {

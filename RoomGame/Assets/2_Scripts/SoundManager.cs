@@ -6,15 +6,53 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] AudioMixer audioMixer;
+     static SoundManager inst;
+    public static SoundManager Inst
+    {
+        get
+        {
+            if (inst == null)
+            {
+                GameObject gameObject = Instantiate(Resources.Load("UI/SoundCanvas") as GameObject);
+                inst = gameObject.GetComponent<SoundManager>();
+                return inst;
 
-    [SerializeField] Slider BGM_Slider;
-    [SerializeField] Slider SFX_Slider;
+            }
+            else
+                return inst;
+        }
+    }
+
+    public AudioMixer audioMixer;
+    public GameObject Box;
+    public Slider SFX_slider;
+    public Slider BGM_slider;
+    public Button CloseBtn;
 
     private void Start()
     {
-        BGM_Slider.onValueChanged.AddListener(ChangeBGMVolume);
-        SFX_Slider.onValueChanged.AddListener(ChangeSFXVolume);
+        CloseBtn.onClick.AddListener(BoxOff);
+        SFX_slider.onValueChanged.AddListener(ChangeSFXVolume);
+        BGM_slider.onValueChanged.AddListener(ChangeBGMVolume);
+
+        float valeu = 0.0f;
+        audioMixer.GetFloat("SFX",out valeu);
+        SFX_slider.value = valeu;
+
+        audioMixer.GetFloat("BGM", out valeu);
+        BGM_slider.value = valeu;
+
+    }
+
+    public void BoxOn()
+    {
+        Box.SetActive(true);
+    }
+
+    public void BoxOff()
+    {
+        Destroy(this.gameObject);
+        inst = null;
     }
 
     void ChangeBGMVolume(float value)

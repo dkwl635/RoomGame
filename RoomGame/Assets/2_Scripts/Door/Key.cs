@@ -17,6 +17,7 @@ public class Key : Item
     {
         if (other.CompareTag("Player"))
         {
+         
             Inven.Inst.AddItem(Item_id);
             this.gameObject.SetActive(false);
         }

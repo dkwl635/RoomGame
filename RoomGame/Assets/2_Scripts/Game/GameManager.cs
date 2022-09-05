@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -15,10 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemData[] itemDatas;
     public Dictionary<int, ItemData> ItemDates = new Dictionary<int, ItemData>();
 
-
-
-    public AudioSource[] a;
-    public List<AudioSource> find = new List<AudioSource>();
+    [SerializeField] Button congifBoxBtn;
 
     private void Awake()
     {
@@ -47,16 +45,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        a = GameObject.FindObjectsOfType<AudioSource>();
-        for (int i = 0; i < a.Length; i++)
-        {
-            if(a[i].clip.name == "SFXCandle")
-            {
-                find.Add(a[i]);
-            }
-        }
+        congifBoxBtn.onClick.AddListener(OnCongifBox);
     }
 
+    void OnCongifBox()
+    {
+        SoundManager.Inst.BoxOn();
+    }
 
     public void EnemyMove(bool IsMove)//움직이는 모든 유령 정지/이동
     {
