@@ -6,7 +6,6 @@ using MiniGameHelper;
 
 public class MiniGameQuest : MonoBehaviour
 {
-    public GameObject MiniGameObj;
     MiniGame miniGame;
     [SerializeField] Text infoTxt;
     [SerializeField] Fog fog;
@@ -17,6 +16,8 @@ public class MiniGameQuest : MonoBehaviour
     bool questClear = false;
 
 
+ 
+
     private void Awake()
     {
         meshOutline = GetComponentInChildren<Outline>();
@@ -24,7 +25,7 @@ public class MiniGameQuest : MonoBehaviour
     }
     private void Start()
     {
-        miniGame = MiniGameObj.GetComponent<MiniGame>();
+        miniGame = GetComponent<MiniGame>();
         miniGame.QuestSetFunc(QuestClear, QuestCloes);
     }
 
@@ -36,6 +37,7 @@ public class MiniGameQuest : MonoBehaviour
             GameManager.Inst.EnemyMove(false);
             GameManager.Inst.PlayerMove(false);
             miniGame.MiniGameStart();
+            SoundManager.Inst.SoundOnShot(eSFX.OPENQUEST);
         }
           
         

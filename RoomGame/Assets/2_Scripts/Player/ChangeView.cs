@@ -25,7 +25,7 @@ public class ChangeView : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        player = GameManager.Inst.player;
         isChange = true;
 
       

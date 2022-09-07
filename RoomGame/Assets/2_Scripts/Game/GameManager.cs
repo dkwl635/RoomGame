@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Inst;
 
-    PlayerMovement player;
+    public PlayerMovement player;
     WaypointPatrol[] waypointPatrols;
     public Vector3 PlayerPos { get { return player.transform.position; } }
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         if (Inst == null)
         {
             Inst = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
             DontDestroyOnLoad(Inst);
         }
         else
@@ -38,9 +40,13 @@ public class GameManager : MonoBehaviour
             ItemDates.Add(itemDatas[i].item_Id, itemDatas[i]);
         } 
 
+      
+        
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         player = GameObject.FindObjectOfType<PlayerMovement>();
         waypointPatrols = GameObject.FindObjectsOfType<WaypointPatrol>();
-        
     }
 
     private void Start()

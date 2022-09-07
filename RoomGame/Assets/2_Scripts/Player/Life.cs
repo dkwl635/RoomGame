@@ -24,6 +24,8 @@ public class Life : MonoBehaviour
         if (hp < 0.0f)
             return;
 
+        SoundManager.Inst.SoundOnShot(eSFX.HIT);
+
         hp -= value;
         if (hp <= 0.0f)
         {

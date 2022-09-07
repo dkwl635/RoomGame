@@ -95,9 +95,8 @@ public class FindOfView : MonoBehaviour
                     !Physics.Raycast(transform.position, pos1dir, disToTarget, LayerMask_obstacle) ||
                     !Physics.Raycast(transform.position, pos2dir, disToTarget, LayerMask_obstacle)
                     )   //타겟까지 또다른 레이저를 발사
-                {//걸리면 장애물이 있다는 소리
-                    Debug.Log("타겟 확인");
-                    targets[i].GetComponent<Life>().TakeDamage(0.2f);                 
+                {//걸리면 장애물이 있다는 소리            
+                    targets[i].GetComponent<Life>().TakeDamage(0.4f);                 
                 }
             }
         }     

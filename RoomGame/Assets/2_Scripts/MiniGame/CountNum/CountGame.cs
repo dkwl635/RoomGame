@@ -18,6 +18,9 @@ public class CountGame : MonoBehaviour, MiniGame
     bool gameIng = false;
     QuestEvent ClearFunc;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] audioClips;
+
     private void Awake()
     {
         numPadsRect = numPadsObj.GetComponent<RectTransform>();
@@ -43,7 +46,7 @@ public class CountGame : MonoBehaviour, MiniGame
 
         gameIng = true;
         SettingNum();
-        this.gameObject.SetActive(true);
+        gamePanel.SetActive(true);
 
         StartCoroutine(OpenUI());
     }
@@ -73,6 +76,7 @@ public class CountGame : MonoBehaviour, MiniGame
 
     public bool PushNumPad(int num)
     {
+        audioSource.PlayOneShot(audioClips[0]);
 
         int pushNum = num - 1;
         if (curNum == pushNum)//성공
@@ -112,6 +116,8 @@ public class CountGame : MonoBehaviour, MiniGame
 
     IEnumerator GameFailed()
     {
+        audioSource.PlayOneShot(audioClips[1]);
+
         for (int i = 0; i < NumPads.Length; i++)
             NumPads[i].SetColor(Color.red);
 
@@ -135,6 +141,7 @@ public class CountGame : MonoBehaviour, MiniGame
 
     public void MiniGameClear()
     {
+        audioSource.PlayOneShot(audioClips[2]);
         ClearFunc?.Invoke();//외부 연결된 함수 실행
         gamePanel.SetActive(false);
     }

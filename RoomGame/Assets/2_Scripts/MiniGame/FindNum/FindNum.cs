@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class FindNum : MonoBehaviour, MiniGame
 {
+    public GameObject gamePanel;
     [Header("ColorNum")]
     [SerializeField] Text[] answerNumText;
     [SerializeField] Button[] numUpDownBtn;
@@ -34,7 +35,7 @@ public class FindNum : MonoBehaviour, MiniGame
     public void MiniGameStart()
     {
         isPush = true;
-        this.gameObject.SetActive(true);
+        gamePanel.SetActive(true);
     }
 
 
@@ -78,7 +79,7 @@ public class FindNum : MonoBehaviour, MiniGame
     void CloesUI()
     {
         CloesFunc?.Invoke();
-        this.gameObject.SetActive(false);
+        gamePanel.SetActive(false);
     }
 
     void OkBtnFunc()
@@ -96,7 +97,7 @@ public class FindNum : MonoBehaviour, MiniGame
     void ClearQuest()
     {
         ClearFunc?.Invoke();//외부 연결된 함수 실행
-        this.gameObject.SetActive(false);
+        gamePanel.SetActive(false);
     }
 
     IEnumerator FailedQuest()

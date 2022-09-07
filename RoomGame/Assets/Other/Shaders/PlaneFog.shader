@@ -1,5 +1,6 @@
 ﻿Shader "Unlit/PlaneFog"
 {
+    
     Properties
     {
         _NoiseTex ("Noise Texture", 2D) = "white" {}

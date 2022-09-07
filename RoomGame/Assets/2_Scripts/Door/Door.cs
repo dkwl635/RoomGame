@@ -61,6 +61,7 @@ public class Door : MonoBehaviour
         if (!opened && isOpen && isPlayer)
         {
             Inven.Inst.UseItem(openNeedItem);//아이템 사용
+            SoundManager.Inst.SoundOnShot(eSFX.DOOR);
             opened = true;
             doorTxtObj.SetActive(false);
             doorAnim.Play("Door_Open");

@@ -6,9 +6,12 @@ using UnityEngine.Audio;
 
 public enum eSFX
 {
-    NONE,
+    TEST,
     GET,
-
+    BUTTON,
+    DOOR,
+    HIT,
+    OPENQUEST,
 }
 
 public class SoundManager : MonoBehaviour
@@ -23,7 +26,7 @@ public class SoundManager : MonoBehaviour
                 inst = GameObject.FindObjectOfType<SoundManager>();
                 if(inst == null)
                 {
-                    GameObject gameObject = Instantiate(Resources.Load("UI/SoundCanvas") as GameObject);
+                    GameObject gameObject = Instantiate(Resources.Load("UI/SoundManager") as GameObject);
                     inst = gameObject.GetComponent<SoundManager>();
                 }    
                 return inst;
@@ -40,10 +43,13 @@ public class SoundManager : MonoBehaviour
     public Button CloseBtn;
 
     public AudioSource SFX_audiSource;
+    public AudioSource BGM_audiSource;
     public AudioClip[] SFX_AudioClips;
 
     private void Start()
-    {
+    { 
+
+
         CloseBtn.onClick.AddListener(BoxOff);
         SFX_slider.onValueChanged.AddListener(ChangeSFXVolume);
         BGM_slider.onValueChanged.AddListener(ChangeBGMVolume);
@@ -54,6 +60,13 @@ public class SoundManager : MonoBehaviour
 
         audioMixer.GetFloat("BGM", out valeu);
         BGM_slider.value = valeu;
+
+
+        var btns = GameObject.FindObjectsOfType<Button>(true);
+        for (int i = 0; i < btns.Length; i++)
+        {
+            btns[i].onClick.AddListener(() => { SoundOnShot(eSFX.BUTTON); });
+        }
 
     }
 
@@ -75,6 +88,7 @@ public class SoundManager : MonoBehaviour
         else
             audioMixer.SetFloat("BGM", sound);
 
+
     }
 
     void ChangeSFXVolume(float value)
@@ -84,11 +98,12 @@ public class SoundManager : MonoBehaviour
             audioMixer.SetFloat("SFX", -80.0f);
         else
             audioMixer.SetFloat("SFX", sound);
-
+      
     }
 
     public void SoundOnShot(eSFX eSFX)
     {
         SFX_audiSource.PlayOneShot(SFX_AudioClips[(int)eSFX]);
     }
+
 }
