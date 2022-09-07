@@ -4,19 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
+public enum eSFX
+{
+    NONE,
+    GET,
+
+}
+
 public class SoundManager : MonoBehaviour
 {
-     static SoundManager inst;
+    static SoundManager inst;
     public static SoundManager Inst
     {
         get
         {
             if (inst == null)
             {
-                GameObject gameObject = Instantiate(Resources.Load("UI/SoundCanvas") as GameObject);
-                inst = gameObject.GetComponent<SoundManager>();
+                inst = GameObject.FindObjectOfType<SoundManager>();
+                if(inst == null)
+                {
+                    GameObject gameObject = Instantiate(Resources.Load("UI/SoundCanvas") as GameObject);
+                    inst = gameObject.GetComponent<SoundManager>();
+                }    
                 return inst;
-
             }
             else
                 return inst;
@@ -28,6 +38,9 @@ public class SoundManager : MonoBehaviour
     public Slider SFX_slider;
     public Slider BGM_slider;
     public Button CloseBtn;
+
+    public AudioSource SFX_audiSource;
+    public AudioClip[] SFX_AudioClips;
 
     private void Start()
     {
@@ -51,8 +64,7 @@ public class SoundManager : MonoBehaviour
 
     public void BoxOff()
     {
-        Destroy(this.gameObject);
-        inst = null;
+        Box.SetActive(false);
     }
 
     void ChangeBGMVolume(float value)
@@ -75,4 +87,8 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void SoundOnShot(eSFX eSFX)
+    {
+        SFX_audiSource.PlayOneShot(SFX_AudioClips[(int)eSFX]);
+    }
 }

@@ -68,6 +68,7 @@ public class Inven : MonoBehaviour
 
     public void AddItem(int item_Id)
     {
+        SoundManager.Inst.SoundOnShot(eSFX.GET);
         invenSlots.Add(InvenSlot.AddSlot(slotObj, invenSlotTr, item_Id));
         ShowTxtBox(GameManager.Inst.ItemDates[item_Id].item_Name + "∏¶ ≈âµÊ«ﬂΩ¿¥œ¥Ÿ.");
     }
