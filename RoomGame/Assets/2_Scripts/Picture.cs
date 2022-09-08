@@ -27,6 +27,8 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
     [SerializeField]float Distance;
     Transform playerTr;
 
+    AudioSource audioSource;
+
     public int num
     {
         get
@@ -50,6 +52,8 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
         E_txt = GameObject.Find("E_Text");
         playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         state = State.Idle;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -88,8 +92,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
                     transform.rotation = Quaternion.Slerp(origin, next, rotTime);
                     if (rotTime >= 1.0f)
                     {
-                        transform.rotation = next;
-                        Debug.Log(num);
+                        transform.rotation = next;                       
                         ChangeState(State.Idle);
                     }
 
@@ -118,6 +121,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
                 } break;
             case State.Rot:
                 {
+                    audioSource.Play();
                     E_txt.SetActive(false);
                     origin = transform.rotation;
                     next = origin * Quaternion.Euler(0, 0, 90.0f);

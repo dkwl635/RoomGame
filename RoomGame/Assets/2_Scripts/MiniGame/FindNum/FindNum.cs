@@ -22,6 +22,10 @@ public class FindNum : MonoBehaviour, MiniGame
 
     [SerializeField] bool isPush = false;
 
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] audioClips;
+
     public void QuestSetFunc(QuestEvent ClearFunc, QuestEvent CloesFunc)
     {
         this.ClearFunc = ClearFunc;
@@ -96,14 +100,16 @@ public class FindNum : MonoBehaviour, MiniGame
 
     void ClearQuest()
     {
+        audioSource.PlayOneShot(audioClips[1]);
         ClearFunc?.Invoke();//외부 연결된 함수 실행
         gamePanel.SetActive(false);
+
     }
 
     IEnumerator FailedQuest()
     {
         isPush = false;
-
+        audioSource.PlayOneShot(audioClips[0]);
         for (int i = 0; i < numImage.Length; i++)
             numImage[i].color =Color.red;
 
