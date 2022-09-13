@@ -3,16 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-
-public enum eSFX
-{
-    TEST,
-    GET,
-    BUTTON,
-    DOOR,
-    HIT,
-    OPENQUEST,
-}
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -28,7 +19,9 @@ public class SoundManager : MonoBehaviour
                 {
                     GameObject gameObject = Instantiate(Resources.Load("UI/SoundManager") as GameObject);
                     inst = gameObject.GetComponent<SoundManager>();
-                }    
+                }
+
+                DontDestroyOnLoad(inst.gameObject);
                 return inst;
             }
             else
@@ -37,22 +30,23 @@ public class SoundManager : MonoBehaviour
     }
 
     public AudioMixer audioMixer;
+    public AudioSource audioSource;
     public GameObject Box;
     public Slider SFX_slider;
     public Slider BGM_slider;
     public Button CloseBtn;
+    public Button ExitBtn;
+    public Button LobbyBtn;
 
-    public AudioSource SFX_audiSource;
-    public AudioSource BGM_audiSource;
-    public AudioClip[] SFX_AudioClips;
 
     private void Start()
     { 
-
-
         CloseBtn.onClick.AddListener(BoxOff);
         SFX_slider.onValueChanged.AddListener(ChangeSFXVolume);
         BGM_slider.onValueChanged.AddListener(ChangeBGMVolume);
+
+        ExitBtn.onClick.AddListener(OnClick_Exit);
+        LobbyBtn.onClick.AddListener(OnClick_Lobby);
 
         float valeu = 0.0f;
         audioMixer.GetFloat("SFX",out valeu);
@@ -61,18 +55,17 @@ public class SoundManager : MonoBehaviour
         audioMixer.GetFloat("BGM", out valeu);
         BGM_slider.value = valeu;
 
-
-        var btns = GameObject.FindObjectsOfType<Button>(true);
-        for (int i = 0; i < btns.Length; i++)
-        {
-            btns[i].onClick.AddListener(() => { SoundOnShot(eSFX.BUTTON); });
-        }
-
+       
     }
 
     public void BoxOn()
     {
         Box.SetActive(true);
+
+        if (SceneManager.GetActiveScene().name.Equals("LobbyScene"))
+            LobbyBtn.gameObject.SetActive(false);
+        else
+            LobbyBtn.gameObject.SetActive(true);
     }
 
     public void BoxOff()
@@ -101,9 +94,20 @@ public class SoundManager : MonoBehaviour
       
     }
 
-    public void SoundOnShot(eSFX eSFX)
+   public void OnClickBtn()
     {
-        SFX_audiSource.PlayOneShot(SFX_AudioClips[(int)eSFX]);
+        audioSource.Play();
+    }
+
+    void OnClick_Exit()
+    {
+        Application.Quit();
+    }
+
+    void OnClick_Lobby()
+    {
+        BoxOff();
+        LoadingManger.inst.LoadScene(0);
     }
 
 }

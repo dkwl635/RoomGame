@@ -9,6 +9,7 @@ RoomGame/[Bb]uild/
 RoomGame/[Bb]uilds/
 RoomGame/[Ll]ogs/
 RoomGame/[Mm]emoryCaptures/
+GameExe/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !RoomGame/[Aa]ssets/**/*.meta

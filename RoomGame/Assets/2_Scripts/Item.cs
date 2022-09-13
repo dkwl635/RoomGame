@@ -8,6 +8,6 @@ public class Item : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-      
+        return;
     }
 }

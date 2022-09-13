@@ -37,7 +37,7 @@ public class MiniGameQuest : MonoBehaviour
             GameManager.Inst.EnemyMove(false);
             GameManager.Inst.PlayerMove(false);
             miniGame.MiniGameStart();
-            SoundManager.Inst.SoundOnShot(eSFX.OPENQUEST);
+            SFXManager.Inst.SoundOnShot(eSFX.OPENQUEST);
         }
           
         

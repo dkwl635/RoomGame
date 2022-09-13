@@ -12,10 +12,10 @@ public class PicturePuzzle : MonoBehaviour
 
     private void Update()
     {
-     
         if (pictures[0].num == 6 && pictures[1].num == 6 && pictures[2].num == 9 && pictures[3].num == 3)
         {
             fog.OffFogs();
+           
             gameObject.SetActive(false);
         }
     }

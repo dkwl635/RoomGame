@@ -21,21 +21,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Inst == null)
-        {
-            Inst = this;
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            DontDestroyOnLoad(Inst);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
+        Inst = this;
+      
         for (int i = 0; i < itemDatas.Length; i++)
         {
             if (ItemDates.ContainsKey(itemDatas[i].item_Id))
-                Debug.Log("중복되는 아이디가 있습니다 : " + itemDatas[i].item_Name);
+                return;
 
             ItemDates.Add(itemDatas[i].item_Id, itemDatas[i]);
         } 
@@ -43,14 +34,13 @@ public class GameManager : MonoBehaviour
       
         
     }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        player = GameObject.FindObjectOfType<PlayerMovement>();
-        waypointPatrols = GameObject.FindObjectsOfType<WaypointPatrol>();
-    }
+
 
     private void Start()
     {
+        player = GameObject.FindObjectOfType<PlayerMovement>();
+        waypointPatrols = GameObject.FindObjectsOfType<WaypointPatrol>();
+
         congifBoxBtn.onClick.AddListener(OnCongifBox);
     }
 

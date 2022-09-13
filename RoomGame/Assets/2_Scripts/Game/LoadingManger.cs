@@ -16,7 +16,7 @@ public class LoadingManger : MonoBehaviour
         else
         {
             inst = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(inst.gameObject);
         }
     }
 
@@ -37,7 +37,12 @@ public class LoadingManger : MonoBehaviour
             fadeImg.color = color;
             yield return null;
         }
-        SceneManager.LoadScene(sceneIdx);
+
+        //SceneManager.LoadScene(sceneIdx);
+        var _var = SceneManager.LoadSceneAsync(sceneIdx);
+        while (!_var.isDone)
+            yield return null;
+
         while (a > 0)
         {
             a -= Time.deltaTime;

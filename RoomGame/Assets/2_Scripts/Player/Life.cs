@@ -21,15 +21,14 @@ public class Life : MonoBehaviour
 
     public void TakeDamage(float value)
     {
-        if (hp < 0.0f)
+        if (hp <= 0.0f)
             return;
 
-        SoundManager.Inst.SoundOnShot(eSFX.HIT);
+        SFXManager.Inst.SoundOnShot(eSFX.HIT);
 
         hp -= value;
         if (hp <= 0.0f)
-        {
-            Debug.Log("Á×À½");
+        {        
             GameObject.FindObjectOfType<GameEnding>().CaughtPlayer();
         }
           

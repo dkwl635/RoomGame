@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class LobbyManager : MonoBehaviour
 {
     public Button gameStartBtn;
+    public Button soundBtn;
 
     private void Start()
     {
         gameStartBtn.onClick.AddListener(GameStart);
+        soundBtn.onClick.AddListener(() => { SoundManager.Inst.BoxOn(); });
     }
 
     void GameStart()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameEnding : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class GameEnding : MonoBehaviour
     public AudioSource AS_Exit;
     public AudioSource AS_Caught;
 
+    bool end = false;
+
+    public GameObject endBtns;
+
+    private void Start()
+    {
+        timer = 0.0f;
+    }
 
     private void Update()
     {
@@ -44,37 +53,48 @@ public class GameEnding : MonoBehaviour
 
     void EndLevel(CanvasGroup imageCanvasGroup, bool doRestart, AudioSource audioSource)
     {
+        if (end)
+            return;
+
         timer += Time.deltaTime;
         imageCanvasGroup.alpha = timer / fadeDuration;
 
-     if(!isHasAudioPlayer)
+        if(!isHasAudioPlayer)
         {
             audioSource.Play();
             isHasAudioPlayer = true;
         }
-      
+
         
 
-        if(timer > fadeDuration + displayImageDuration)
+        if (timer > fadeDuration + displayImageDuration)
         {
-            if(doRestart)
+            end = true;
+
+            if (doRestart)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                LoadingManger.inst.LoadScene(1);
             }
             else
             {
-                Debug.Log("Goal");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                //Application.Quit();
+                endBtns.SetActive(true);
             }
-            timer = 0.0f;
-
         }
-
     }
 
     public void CaughtPlayer()
     {
         isPlayerCaught = true;
     }
+
+    public void OnClick_ToLobby()
+    {
+        LoadingManger.inst.LoadScene(0);
+    }
+
+    public void OnClick_GameExit()
+    {
+        Application.Quit();
+    }
+
 }
