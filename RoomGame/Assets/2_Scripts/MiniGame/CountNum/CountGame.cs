@@ -6,25 +6,24 @@ using MiniGameHelper;
 
 public class CountGame : MonoBehaviour, MiniGame
 {
-    int curNum = 0;
+    int curNum = 0; //현재 눌러야하는 순서
 
-    [SerializeField] private GameObject gamePanel;
-    [SerializeField] private GameObject numPadsObj;
-    [SerializeField] private GameObject[] infoBox;
-    [SerializeField] private NumPad[] NumPads;
-    List<int> nums = new List<int>();
+    [SerializeField] private GameObject gamePanel; //본 퍼즐 UI패널
+    [SerializeField] private GameObject numPadsObj;//넘패드 UI패널
+    [SerializeField] private GameObject[] infoBox; //안내 문구
+    [SerializeField] private NumPad[] NumPads;  //각각 넘패드 오브젝트
+    List<int> nums = new List<int>();          //무작위 숫자를 넣기위한 임시 리스트
 
     RectTransform numPadsRect;
     bool gameIng = false;
-    QuestEvent ClearFunc;
+    QuestEvent ClearFunc; //클리어시 들어갈 콜백함수
 
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource; //음향 효과를 위한
     [SerializeField] private AudioClip[] audioClips;
 
     private void Awake()
     {
         numPadsRect = numPadsObj.GetComponent<RectTransform>();
-
         NumPad.Push = true;
     }
 
@@ -34,12 +33,12 @@ public class CountGame : MonoBehaviour, MiniGame
             NumPads[i].NumPadPush = PushNumPad;
     }
 
-    public void QuestSetFunc(QuestEvent ClearFunc, QuestEvent CloesFunc)
+    public void QuestSetFunc(QuestEvent ClearFunc, QuestEvent CloesFunc) //필요한 함수 저장
     {
         this.ClearFunc = ClearFunc;
     }
 
-    public void MiniGameStart()
+    public void MiniGameStart() //시작
     {
         if (gameIng)
             return;
@@ -51,7 +50,7 @@ public class CountGame : MonoBehaviour, MiniGame
         StartCoroutine(OpenUI());
     }
 
-    IEnumerator OpenUI()
+    IEnumerator OpenUI() //오픈시 나타낼 효과
     {
         float timer = 0.0f;
         Vector2 originPos = numPadsRect.anchoredPosition;
@@ -73,8 +72,7 @@ public class CountGame : MonoBehaviour, MiniGame
     }
 
 
-
-    public bool PushNumPad(int num)
+    public bool PushNumPad(int num) //넘패드에서 호출될 함수
     {
         audioSource.PlayOneShot(audioClips[0]);
 
@@ -97,7 +95,15 @@ public class CountGame : MonoBehaviour, MiniGame
 
     }
 
-    public void SettingNum()
+    public void MiniGameClear() //성공시
+    {
+        audioSource.PlayOneShot(audioClips[2]);
+        ClearFunc?.Invoke();//외부 연결된 함수 실행
+        gamePanel.SetActive(false); //UI off
+    }
+
+
+    public void SettingNum() //무작위 숫자 선정
     {
         nums.Clear();
         for (int i = 1; i <= 9; i++)
@@ -114,7 +120,7 @@ public class CountGame : MonoBehaviour, MiniGame
         NumPad.Push = true;
     }
 
-    IEnumerator GameFailed()
+    IEnumerator GameFailed() //실패시 효과
     {
         audioSource.PlayOneShot(audioClips[1]);
 
@@ -139,12 +145,6 @@ public class CountGame : MonoBehaviour, MiniGame
         SettingNum();
     }
 
-    public void MiniGameClear()
-    {
-        audioSource.PlayOneShot(audioClips[2]);
-        ClearFunc?.Invoke();//외부 연결된 함수 실행
-        gamePanel.SetActive(false);
-    }
 
 
 }

@@ -14,12 +14,9 @@ public class Door : MonoBehaviour
     Animation doorAnim;
     Text doorTxt;
 
-
     bool opened = false;  //문이 열려있는지
     bool isPlayer = false;  //플레이어가 가까이 있는지
     [SerializeField] bool isOpen = false;    //문을 열 수 있는지
-
-
 
     private void Awake()
     {
@@ -79,7 +76,6 @@ public class Door : MonoBehaviour
         doorCollider.enabled = false;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player") && !opened)
@@ -100,3 +96,5 @@ public class Door : MonoBehaviour
     }
 
 }
+
+

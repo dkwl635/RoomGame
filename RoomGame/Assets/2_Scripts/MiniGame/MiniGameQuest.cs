@@ -15,9 +15,6 @@ public class MiniGameQuest : MonoBehaviour
     bool inPlayer = false;
     bool questClear = false;
 
-
- 
-
     private void Awake()
     {
         meshOutline = GetComponentInChildren<Outline>();
@@ -33,11 +30,11 @@ public class MiniGameQuest : MonoBehaviour
     {
         if(inPlayer && Input.GetKeyDown(KeyCode.Q))
         {
-            infoTxt.gameObject.SetActive(false);
-            GameManager.Inst.EnemyMove(false);
-            GameManager.Inst.PlayerMove(false);
+            infoTxt.gameObject.SetActive(false);         
             miniGame.MiniGameStart();
             SFXManager.Inst.SoundOnShot(eSFX.OPENQUEST);
+            GameManager.Inst.EnemyMove(false);
+            GameManager.Inst.PlayerMove(false);
         }
           
         
@@ -75,7 +72,6 @@ public class MiniGameQuest : MonoBehaviour
 
     void QuestCloes()
     {
-
         GameManager.Inst.EnemyMove(true);
         GameManager.Inst.PlayerMove(true);
     }

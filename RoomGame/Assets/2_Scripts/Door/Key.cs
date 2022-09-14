@@ -13,7 +13,7 @@ public class Key : Item
         keyMesh.material.color = keyColor;
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {

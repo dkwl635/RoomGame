@@ -102,6 +102,7 @@ public class FindOfView : MonoBehaviour
         }     
     }
 
+
     ViewCastInfo ViewCast(float globalAngle)
     {
         Vector3 dir = DirFromAngle(globalAngle, true);

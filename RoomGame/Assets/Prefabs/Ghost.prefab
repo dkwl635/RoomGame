@@ -1184,6 +1184,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5944949581690232767}
     m_Modifications:
+    - target: {fileID: 285589248, guid: 6c359a8b70094dd4ebaae8ca32a931e8, type: 3}
+      propertyPath: isEditor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1554670863647684910, guid: 6c359a8b70094dd4ebaae8ca32a931e8, type: 3}
       propertyPath: m_Name
       value: PointOfView

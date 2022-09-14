@@ -11,7 +11,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
         OnPlayer,
         Rot,
     }
-
+    PicturePuzzle picturePuzzle;
     [SerializeField] State state;
 
     Renderer renderer;  
@@ -49,6 +49,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 
     private void Awake()
     {
+        picturePuzzle = GameObject.FindObjectOfType<PicturePuzzle>();
         E_txt = GameObject.Find("E_Text");
         playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         state = State.Idle;
@@ -111,6 +112,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
             case State.Idle: 
                 {
                     outline.SetColor("_OutlineColor", Color.clear);
+                    picturePuzzle.CheckPuzzle();
                     E_txt.SetActive(false);
                 } break;
             case State.OnPlayer: 
