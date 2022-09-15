@@ -11,8 +11,6 @@ public class FindNum : MonoBehaviour, MiniGame
     [SerializeField] Text[] answerNumText;
     [SerializeField] Button[] numUpDownBtn;
     [SerializeField] Image[] numImage;
-    
-
     [SerializeField] Button OkBtn;
     [SerializeField] Button closeBtn;
     int[] answerNums = new int[3] { 0, 0, 0 };

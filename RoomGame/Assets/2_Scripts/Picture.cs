@@ -11,6 +11,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
         OnPlayer,
         Rot,
     }
+
     PicturePuzzle picturePuzzle;
     [SerializeField] State state;
 
@@ -29,7 +30,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 
     AudioSource audioSource;
 
-    public int num
+    public int num //각도에 따른 방향 값 리턴
     {
         get
         {
@@ -46,28 +47,23 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
     }
 
 
-
-    private void Awake()
+    private void Awake() //필요한 오브젝트 캐싱
     {
         picturePuzzle = GameObject.FindObjectOfType<PicturePuzzle>();
         E_txt = GameObject.Find("E_Text");
         playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         state = State.Idle;
-
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {      
         renderer = GetComponent<Renderer>();
-        outline = renderer.materials[1];    
+        outline = renderer.materials[1];
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         StateUpdate();
     }
-    void StateUpdate()
+
+    void StateUpdate() //상태에 따른 업데이트
     {
        switch(state)    
         {
@@ -101,7 +97,7 @@ public class Picture : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    void ChangeState(State newState)
+    void ChangeState(State newState) //상태가 변화 됬을떄
     {
         if (state == newState)
             return;

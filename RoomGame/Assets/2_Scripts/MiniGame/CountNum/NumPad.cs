@@ -27,13 +27,6 @@ public class NumPad : MonoBehaviour , IPointerClickHandler
         numTxt.text = num.ToString();
     }
 
-  
-    public void SetColor(Color color)
-    {
-        img.color = color;
-    }
-
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!Push)
@@ -41,7 +34,14 @@ public class NumPad : MonoBehaviour , IPointerClickHandler
 
         if (NumPadPush.Invoke(num))
             SetColor(Color.green);
-       
+
 
     }
+
+    public void SetColor(Color color)
+    {
+        img.color = color;
+    }
+
+
 }

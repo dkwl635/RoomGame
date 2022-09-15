@@ -44,14 +44,14 @@ public class CountGame : MonoBehaviour, MiniGame
             return;
 
         gameIng = true;
-        SettingNum();
-        gamePanel.SetActive(true);
-
-        StartCoroutine(OpenUI());
+        SettingNum();   //판 셋팅
+    
+        StartCoroutine(OpenUI()); //게임 UI Open
     }
 
     IEnumerator OpenUI() //오픈시 나타낼 효과
     {
+        gamePanel.SetActive(true);
         float timer = 0.0f;
         Vector2 originPos = numPadsRect.anchoredPosition;
         Vector2 endPos = Vector2.zero;
